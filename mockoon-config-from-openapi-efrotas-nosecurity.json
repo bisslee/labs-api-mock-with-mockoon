@@ -1,0 +1,599 @@
+{
+  "uuid": "8bde6d9b-be7c-4549-85d1-f77394106237",
+  "lastMigration": 33,
+  "name": "e-Frotas Consultas API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "40f26e14-076d-4e33-a9aa-a9f8382319a8",
+      "type": "http",
+      "documentation": "Consulta o PDF de Notificação de Autuação no SNE",
+      "method": "get",
+      "endpoint": "consultas/sne/pdf/placa/:placa/codigoOrgao/:codigoOrgao/numeroAit/:numeroAit/codigoInfracao/:codigoInfracao/NA",
+      "responses": [
+        {
+          "uuid": "8444125f-56e1-4975-a8cc-9d1dde1a994b",
+          "body": "{\n  \"placa\": \"\",\n  \"filename\": \"\",\n  \"chaveInfracao\": \"\",\n  \"base64\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "3f2cd0a0-6bd3-4494-a28a-a23a08b503b6",
+      "type": "http",
+      "documentation": "Consulta o PDF de Notificação de Penalidade no SNE",
+      "method": "get",
+      "endpoint": "consultas/sne/pdf/placa/:placa/codigoOrgao/:codigoOrgao/numeroAit/:numeroAit/codigoInfracao/:codigoInfracao/NP",
+      "responses": [
+        {
+          "uuid": "d87603f0-89e8-4cd9-914a-3a9ce0c0c3e0",
+          "body": "{\n  \"placa\": \"\",\n  \"filename\": \"\",\n  \"chaveInfracao\": \"\",\n  \"base64\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "f3105b41-18a0-4494-b977-e9feb6e05ab0",
+      "type": "http",
+      "documentation": "Consultar dados de uma infração a partir da sua chave",
+      "method": "get",
+      "endpoint": "consultas/v1/infracoes/codigoOrgao/:codigoOrgao/numeroAit/:numeroAit/codigoInfracao/:codigoInfracao",
+      "responses": [
+        {
+          "uuid": "16bbb17c-a144-4d35-bf1c-d2936bae4d7e",
+          "body": "{\n  \"codigoOrgaoAutuador\": \"\",\n  \"numeroAutoInfracao\": \"\",\n  \"codigoInfracao\": \"\",\n  \"ufOrgaoAutuador\": \"\",\n  \"valorIntegralInfracao\": {{faker 'number.int' max=99999}},\n  \"descricaoInfracao\": \"\",\n  \"dataVencimentoPenalidade\": \"\",\n  \"dataPagamento\": \"\",\n  \"dataRegistroPagamento\": \"2022-03-10\",\n  \"placa\": \"\",\n  \"gravidade\": \"\",\n  \"dataLimiteDefesaAutuacao\": \"\",\n  \"localAutuacao\": \"\",\n  \"descricaoMunicipioAutuacao\": \"\",\n  \"codigoMunicipioAutuacao\": {{faker 'number.int' max=99999}},\n  \"codigoDesdobramento\": \"\",\n  \"nomePossuidorOriginal\": \"\",\n  \"numeroDocumentoPossuidorOriginal\": \"\",\n  \"numeroDocumentoInfratorConsiderado\": \"\",\n  \"dataAutuacao\": \"\",\n  \"horaAutuacao\": \"\",\n  \"dataEmissaoNotificacaoAutuacao\": \"\",\n  \"dataEmissaoNotificacaoPenalidade\": \"\",\n  \"medicaoReal\": {{faker 'number.int' max=99999}},\n  \"limitePermitido\": {{faker 'number.int' max=99999}},\n  \"renainf\": {{faker 'number.int' max=99999}},\n  \"nomePossuidor\": \"\",\n  \"numeroDocumentoPossuidor\": \"\",\n  \"siglaUfLocalAutuacao\": \"\",\n  \"descricaoPaisOrigemVeiculo\": \"\",\n  \"indicadorExigibilidade\": {{faker 'datatype.boolean'}},\n  \"indicadorFotoRecebida\": {{faker 'datatype.boolean'}},\n  \"indicadorCanceladaSuspensa\": {{faker 'datatype.boolean'}},\n  \"renainfOriginario\": {{faker 'number.int' max=99999}},\n  \"chaveDaInfracaoOriginal\": {\n    \"codigoOrgaoAutuador\": \"\",\n    \"numeroAutoInfracao\": \"\",\n    \"codigoInfracao\": \"\"\n  },\n  \"codigoEquipamentoAfericao\": \"\",\n  \"codigoAgenteFiscalizador\": \"\",\n  \"observacoes\": \"\",\n  \"versao\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "22ee46b6-1a56-4c99-bf74-7f6436853a2d",
+      "type": "http",
+      "documentation": "Consulta as infrações não pagas de um veículo",
+      "method": "get",
+      "endpoint": "consultas/v1/infracoes/placa/:placa",
+      "responses": [
+        {
+          "uuid": "40b9b87f-b1b7-4f0d-ad3a-b26123d4c523",
+          "body": "[\n  {\n    \"codigoOrgaoAutuador\": \"\",\n    \"numeroAutoInfracao\": \"\",\n    \"codigoInfracao\": \"\",\n    \"ufOrgaoAutuador\": \"\",\n    \"valorIntegralInfracao\": {{faker 'number.int' max=99999}},\n    \"descricaoInfracao\": \"\",\n    \"dataVencimentoPenalidade\": \"\",\n    \"dataPagamento\": \"\",\n    \"dataRegistroPagamento\": \"2022-03-10\",\n    \"placa\": \"\",\n    \"gravidade\": \"\",\n    \"dataLimiteDefesaAutuacao\": \"\",\n    \"localAutuacao\": \"\",\n    \"descricaoMunicipioAutuacao\": \"\",\n    \"codigoMunicipioAutuacao\": {{faker 'number.int' max=99999}},\n    \"codigoDesdobramento\": \"\",\n    \"nomePossuidorOriginal\": \"\",\n    \"numeroDocumentoPossuidorOriginal\": \"\",\n    \"numeroDocumentoInfratorConsiderado\": \"\",\n    \"dataAutuacao\": \"\",\n    \"horaAutuacao\": \"\",\n    \"dataEmissaoNotificacaoAutuacao\": \"\",\n    \"dataEmissaoNotificacaoPenalidade\": \"\",\n    \"medicaoReal\": {{faker 'number.int' max=99999}},\n    \"limitePermitido\": {{faker 'number.int' max=99999}},\n    \"renainf\": {{faker 'number.int' max=99999}},\n    \"nomePossuidor\": \"\",\n    \"numeroDocumentoPossuidor\": \"\",\n    \"siglaUfLocalAutuacao\": \"\",\n    \"descricaoPaisOrigemVeiculo\": \"\",\n    \"indicadorExigibilidade\": {{faker 'datatype.boolean'}},\n    \"indicadorFotoRecebida\": {{faker 'datatype.boolean'}},\n    \"indicadorCanceladaSuspensa\": {{faker 'datatype.boolean'}},\n    \"renainfOriginario\": {{faker 'number.int' max=99999}},\n    \"chaveDaInfracaoOriginal\": {\n      \"codigoOrgaoAutuador\": \"\",\n      \"numeroAutoInfracao\": \"\",\n      \"codigoInfracao\": \"\"\n    },\n    \"codigoEquipamentoAfericao\": \"\",\n    \"codigoAgenteFiscalizador\": \"\",\n    \"observacoes\": \"\",\n    \"versao\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "8b564527-ac69-47f3-a5c9-fe477037563a",
+      "type": "http",
+      "documentation": "Consulta todos os veículos de um CNPJ ou todos os veículos de uma filial desde que tenham a mesma raiz. \n\n\nSe a opção cnpjFilial estiver com algum valor, a consulta retorna os dados do CNPJ da filial.\n\n\n Não passando nenhum valor nesse campo, os dados retornados serão os do CNPJ do certificado.",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos",
+      "responses": [
+        {
+          "uuid": "610c9b8c-eb46-4ca3-85a4-c066655113a5",
+          "body": "[\n  {\n    \"placa\": \"\",\n    \"renavam\": \"\",\n    \"descricaoMarcaModelo\": \"\",\n    \"anoFabricacao\": {{faker 'number.int' max=99999}},\n    \"anoModelo\": {{faker 'number.int' max=99999}},\n    \"chassi\": \"\",\n    \"quantidadeTotalRestricoes\": {{faker 'number.int' max=99999}},\n    \"versao\": \"\"\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "60a95c00-45b3-4087-aaa1-d364083bb58c",
+          "body": "",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Consulta não autorizada",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "0a9fafed-9818-4986-b1d7-4c5734ab3744",
+      "type": "http",
+      "documentation": "Consulta de dados de um veículo",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos/placa/:placa",
+      "responses": [
+        {
+          "uuid": "f3657682-fc47-4e81-9ab2-325e1d73af86",
+          "body": "{\n  \"placa\": \"\",\n  \"renavam\": \"\",\n  \"descricaoMunicipioEmplacamento\": \"\",\n  \"chassi\": \"\",\n  \"descricaoCor\": \"\",\n  \"anoFabricacao\": {{faker 'number.int' max=99999}},\n  \"anoModelo\": {{faker 'number.int' max=99999}},\n  \"descricaoCombustivel\": \"\",\n  \"descricaoTipoVeiculo\": \"\",\n  \"descricaoEspecie\": \"\",\n  \"descricaoCategoria\": \"\",\n  \"procedencia\": \"\",\n  \"ufJurisdicao\": \"\",\n  \"quantidadeTotalRestricoes\": {{faker 'number.int' max=99999}},\n  \"descricaoMarcaModelo\": \"\",\n  \"proprietario\": {\n    \"tipoDocumento\": \"\",\n    \"numeroDocumento\": \"\"\n  },\n  \"indicadores\": {\n    \"rouboFurto\": {{faker 'datatype.boolean'}},\n    \"recall\": {{faker 'datatype.boolean'}},\n    \"comunicacaoVenda\": {{faker 'datatype.boolean'}},\n    \"renajud\": {{faker 'datatype.boolean'}},\n    \"infracoesExigiveis\": {{faker 'datatype.boolean'}}\n  },\n  \"versao\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "8128d8fc-25a3-4305-8d8c-41ce21339f25",
+          "body": "{\n  \"mensagem\": \"\",\n  \"mensagemTecnica\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Consulta não autorizada",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "d4a3a827-7ab4-42ad-ab28-ebca66cd6be9",
+      "type": "http",
+      "documentation": "Verifica se um veículo está associado a um CNPJ",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos/placa/:placa/associado",
+      "responses": [
+        {
+          "uuid": "5f03d9e2-d525-479d-a934-8ff370a5d76a",
+          "body": "{\n  \"mensagem\": \"\",\n  \"mensagemTecnica\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "f993746f-2118-4290-9548-7af42df9595a",
+          "body": "{\n  \"mensagem\": \"\",\n  \"mensagemTecnica\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Consulta não autorizada",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "84ebc03e-b5d7-45e7-a298-4d987fb21115",
+      "type": "http",
+      "documentation": "Consulta ocorrência de roubo e furto por placa.",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos/placa/:placa/ocorrencias-roubo-furto",
+      "responses": [
+        {
+          "uuid": "5dff412b-2364-4619-b7d4-74095f72802e",
+          "body": "{\n  \"chassi\": \"\",\n  \"placa\": \"\",\n  \"categoriaOcorrencia\": \"\",\n  \"tipoOcorrenciaDeclaracao\": \"\",\n  \"numeroBoletimOcorrencia\": \"\",\n  \"dataOcorrencia\": \"\",\n  \"numeroOrgaoSeguranca\": \"\",\n  \"descricaoMunicipioRegistroOcorrencia\": \"\",\n  \"ufRegistroOcorrencia\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c608183a-755f-4c2b-87b5-dc74ac175d00",
+          "body": "{\n  \"mensagem\": \"\",\n  \"mensagemTecnica\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Consulta não autorizada",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "ab570b74-a800-418f-bfa8-cebfa4544de1",
+      "type": "http",
+      "documentation": "Consulta o recall de um veículo por placa.",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos/placa/:placa/recall",
+      "responses": [
+        {
+          "uuid": "5a208d5c-8c5f-43f7-a30c-fbdf6b99746d",
+          "body": "{\n  \"nomeRecall\": \"\",\n  \"descricaoRecall\": \"\",\n  \"dataRegistro\": \"2022-03-10\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "1f8c14e0-b497-48c8-9107-fd95060c55b1",
+          "body": "{\n  \"mensagem\": \"\",\n  \"mensagemTecnica\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Consulta não autorizada",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "505d3d3b-9eb3-4613-8a36-40be62b52b5f",
+      "type": "http",
+      "documentation": "Consulta restrições judiciais por placa",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos/placa/:placa/restricoes-renajud",
+      "responses": [
+        {
+          "uuid": "7ef56e11-7844-4e2f-9b8f-b0726e90f039",
+          "body": "{\n  \"tipo\": \"\",\n  \"numeroProcesso\": \"\",\n  \"dataHora\": \"\",\n  \"codigoRamoJustica\": \"\",\n  \"codigoTribunal\": \"\",\n  \"codigoOrgaoJudiciario\": \"\",\n  \"nomeOrgaoJudicial\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "79c0fcbb-d072-496c-9ad8-86d327fb77c7",
+          "body": "{\n  \"mensagem\": \"\",\n  \"mensagemTecnica\": \"\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Consulta não autorizada",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "40f26e14-076d-4e33-a9aa-a9f8382319a8"
+    },
+    {
+      "type": "route",
+      "uuid": "3f2cd0a0-6bd3-4494-a28a-a23a08b503b6"
+    },
+    {
+      "type": "route",
+      "uuid": "f3105b41-18a0-4494-b977-e9feb6e05ab0"
+    },
+    {
+      "type": "route",
+      "uuid": "22ee46b6-1a56-4c99-bf74-7f6436853a2d"
+    },
+    {
+      "type": "route",
+      "uuid": "8b564527-ac69-47f3-a5c9-fe477037563a"
+    },
+    {
+      "type": "route",
+      "uuid": "0a9fafed-9818-4986-b1d7-4c5734ab3744"
+    },
+    {
+      "type": "route",
+      "uuid": "d4a3a827-7ab4-42ad-ab28-ebca66cd6be9"
+    },
+    {
+      "type": "route",
+      "uuid": "84ebc03e-b5d7-45e7-a298-4d987fb21115"
+    },
+    {
+      "type": "route",
+      "uuid": "ab570b74-a800-418f-bfa8-cebfa4544de1"
+    },
+    {
+      "type": "route",
+      "uuid": "505d3d3b-9eb3-4613-8a36-40be62b52b5f"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}
