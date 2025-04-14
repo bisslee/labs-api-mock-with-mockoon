@@ -1,0 +1,213 @@
+{
+  "uuid": "veiculo-exemplo-faker",
+  "lastMigration": 33,
+  "name": "Exemplo Faker.js para API e-Frotas",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "consulta-veiculo-placa",
+      "type": "http",
+      "documentation": "Consulta de dados de um veículo com dados dinâmicos usando Faker.js",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos/placa/:placa",
+      "responses": [
+        {
+          "uuid": "veiculo-resposta-sucesso",
+          "body": "{\n  \"placa\": \"{{request.params.placa}}\",\n  \"renavam\": \"{{faker 'string.numeric' length=11}}\",\n  \"descricaoMunicipioEmplacamento\": \"{{faker 'location.city'}}\",\n  \"chassi\": \"{{faker 'string.alphanumeric' length=17 casing='upper'}}\",\n  \"descricaoCor\": \"{{faker 'helpers.arrayElement' array='[\"PRATA\",\"PRETO\",\"BRANCO\",\"VERMELHO\",\"AZUL\",\"CINZA\"]'}}\",\n  \"anoFabricacao\": {{faker 'number.int' min=2010 max=2025}},\n  \"anoModelo\": {{faker 'number.int' min=2010 max=2025}},\n  \"descricaoCombustivel\": \"{{faker 'helpers.arrayElement' array='[\"FLEX\",\"GASOLINA\",\"DIESEL\",\"ETANOL\",\"ELÉTRICO\"]'}}\",\n  \"descricaoTipoVeiculo\": \"{{faker 'helpers.arrayElement' array='[\"AUTOMOVEL\",\"CAMINHONETE\",\"MOTOCICLETA\",\"ONIBUS\"]'}}\",\n  \"descricaoEspecie\": \"{{faker 'helpers.arrayElement' array='[\"PASSAGEIRO\",\"CARGA\",\"MISTO\"]'}}\",\n  \"descricaoCategoria\": \"{{faker 'helpers.arrayElement' array='[\"PARTICULAR\",\"ALUGUEL\",\"OFICIAL\"]'}}\",\n  \"procedencia\": \"{{faker 'helpers.arrayElement' array='[\"NACIONAL\",\"IMPORTADO\"]'}}\",\n  \"ufJurisdicao\": \"{{faker 'location.stateAbbr'}}\",\n  \"quantidadeTotalRestricoes\": {{faker 'number.int' min=0 max=5}},\n  \"descricaoMarcaModelo\": \"{{faker 'helpers.arrayElement' array='[\"FIAT/PALIO\",\"VW/GOL\",\"GM/ONIX\",\"FORD/KA\",\"TOYOTA/COROLLA\",\"HONDA/CIVIC\"]'}}\",\n  \"proprietario\": {\n    \"tipoDocumento\": \"{{faker 'helpers.arrayElement' array='[\"CPF\",\"CNPJ\"]'}}\",\n    \"numeroDocumento\": \"{{faker 'string.numeric' length=11}}\"\n  },\n  \"indicadores\": {\n    \"rouboFurto\": {{faker 'datatype.boolean'}},\n    \"recall\": {{faker 'datatype.boolean'}},\n    \"comunicacaoVenda\": {{faker 'datatype.boolean'}},\n    \"renajud\": {{faker 'datatype.boolean'}},\n    \"infracoesExigiveis\": {{faker 'datatype.boolean'}}\n  },\n  \"versao\": \"1.0.0\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Sucesso",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "lista-veiculos",
+      "type": "http",
+      "documentation": "Consulta todos os veículos com array dinâmico usando Faker.js",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos",
+      "responses": [
+        {
+          "uuid": "lista-veiculos-resposta",
+          "body": "[\n  {{#repeat 5}}\n  {\n    \"placa\": \"{{faker 'helpers.replaceSymbols' options='???####'}}\",\n    \"renavam\": \"{{faker 'string.numeric' length=11}}\",\n    \"descricaoMarcaModelo\": \"{{faker 'helpers.arrayElement' array='[\"FIAT/PALIO\",\"VW/GOL\",\"GM/ONIX\",\"FORD/KA\",\"TOYOTA/COROLLA\",\"HONDA/CIVIC\"]'}}\",\n    \"anoFabricacao\": {{faker 'number.int' min=2010 max=2025}},\n    \"anoModelo\": {{faker 'number.int' min=2010 max=2025}},\n    \"chassi\": \"{{faker 'string.alphanumeric' length=17 casing='upper'}}\",\n    \"quantidadeTotalRestricoes\": {{faker 'number.int' min=0 max=5}},\n    \"versao\": \"1.0.0\"\n  }{{#unless @last}},{{/unless}}\n  {{/repeat}}\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Sucesso",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "consulta-infracoes-placa",
+      "type": "http",
+      "documentation": "Consulta as infrações de um veículo com dados dinâmicos usando Faker.js",
+      "method": "get",
+      "endpoint": "consultas/v1/infracoes/placa/:placa",
+      "responses": [
+        {
+          "uuid": "infracoes-resposta",
+          "body": "[\n  {{#repeat 3}}\n  {\n    \"codigoOrgaoAutuador\": \"{{faker 'string.numeric' length=3}}\",\n    \"numeroAutoInfracao\": \"{{faker 'string.alphanumeric' length=10 casing='upper'}}\",\n    \"codigoInfracao\": \"{{faker 'string.numeric' length=4}}\",\n    \"ufOrgaoAutuador\": \"{{faker 'location.stateAbbr'}}\",\n    \"valorIntegralInfracao\": {{faker 'number.float' min=100 max=1000 precision=2}},\n    \"descricaoInfracao\": \"{{faker 'helpers.arrayElement' array='[\"Excesso de velocidade\",\"Estacionamento irregular\",\"Dirigir sem cinto de segurança\",\"Ultrapassagem proibida\",\"Dirigir sob influência de álcool\"]'}}\",\n    \"dataVencimentoPenalidade\": \"{{faker 'date.future' days=30 format='YYYY-MM-DD'}}\",\n    \"dataPagamento\": null,\n    \"placa\": \"{{request.params.placa}}\",\n    \"gravidade\": \"{{faker 'helpers.arrayElement' array='[\"leve\",\"média\",\"grave\",\"gravíssima\"]'}}\",\n    \"dataLimiteDefesaAutuacao\": \"{{faker 'date.future' days=15 format='YYYY-MM-DD'}}\",\n    \"localAutuacao\": \"{{faker 'location.street'}}\",\n    \"descricaoMunicipioAutuacao\": \"{{faker 'location.city'}}\",\n    \"codigoMunicipioAutuacao\": {{faker 'number.int' min=1000000 max=9999999}},\n    \"dataAutuacao\": \"{{faker 'date.past' days=15 format='YYYY-MM-DD'}}\",\n    \"horaAutuacao\": \"{{faker 'date.time'}}\",\n    \"medicaoReal\": {{faker 'number.int' min=60 max=120}}},\n    \"limitePermitido\": {{faker 'number.int' min=30 max=80}},\n    \"renainf\": {{faker 'number.int' min=1000000 max=9999999}},\n    \"indicadorExigibilidade\": {{faker 'datatype.boolean'}},\n    \"indicadorFotoRecebida\": {{faker 'datatype.boolean'}},\n    \"indicadorCanceladaSuspensa\": false,\n    \"observacoes\": \"Infração registrada por equipamento eletrônico\"\n  }{{#unless @last}},{{/unless}}\n  {{/repeat}}\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Sucesso",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "consulta-recall",
+      "type": "http",
+      "documentation": "Consulta o recall de um veículo com dados dinâmicos usando Faker.js",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos/placa/:placa/recall",
+      "responses": [
+        {
+          "uuid": "recall-resposta",
+          "body": "{\n  \"placa\": \"{{request.params.placa}}\",\n  \"chassi\": \"{{faker 'string.alphanumeric' length=17 casing='upper'}}\",\n  \"recalls\": [\n    {{#repeat 2}}\n    {\n      \"codigoCampanha\": \"{{faker 'string.alphanumeric' length=8 casing='upper'}}\",\n      \"descricaoCampanha\": \"{{faker 'helpers.arrayElement' array='[\"Substituição do airbag do motorista\",\"Verificação do sistema de freios\",\"Atualização do software de controle do motor\",\"Substituição da bomba de combustível\",\"Verificação do sistema elétrico\"]'}}\",\n      \"dataInicioCampanha\": \"{{faker 'date.past' years=1 format='YYYY-MM-DD'}}\",\n      \"statusAtendimento\": \"{{faker 'helpers.arrayElement' array='[\"PENDENTE\",\"ATENDIDO\",\"EM_ANDAMENTO\"]'}}\",\n      \"dataAtendimento\": {{#if (faker 'helpers.arrayElement' array='[true,false,false]')}}\"{{faker 'date.past' months=3 format='YYYY-MM-DD'}}\"{{else}}null{{/if}}\n    }{{#unless @last}},{{/unless}}\n    {{/repeat}}\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Sucesso",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "consulta-veiculo-placa"
+    },
+    {
+      "type": "route",
+      "uuid": "lista-veiculos"
+    },
+    {
+      "type": "route",
+      "uuid": "consulta-infracoes-placa"
+    },
+    {
+      "type": "route",
+      "uuid": "consulta-recall"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}

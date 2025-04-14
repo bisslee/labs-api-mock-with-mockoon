@@ -1,0 +1,39 @@
+---
+openapi: 3.0.3
+info:
+  title: e-Frotas Consultas API
+  description: "API de consultas do e-Frotas"
+  version: 1.0.0
+servers:
+- url: "{endpoint}"
+  description: Endereço da api
+  variables:
+    endpoint:
+      default: http://localhost:3000
+paths:
+  /consultas/v1/veiculos/placa/{placa}:
+    get:
+      tags:
+      - Operações com veículos
+      description: Consulta de dados de um veículo
+      parameters:
+      - name: placa
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VeiculoDTO'
+components:
+  schemas:
+    VeiculoDTO:
+      type: object
+      properties:
+        placa:
+          type: string
+          description: Placa do veículo

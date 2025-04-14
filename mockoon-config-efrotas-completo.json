@@ -1,0 +1,1506 @@
+{
+  "uuid": "618944f8-6ad7-4276-8e1d-a4b77c368cf5",
+  "lastMigration": 33,
+  "name": "e-Frotas Consultas API",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "241a13d4-5bde-40ec-b80e-12b25d395f88",
+      "type": "http",
+      "documentation": "Consulta o PDF de Notificação de Autuação no SNE",
+      "method": "get",
+      "endpoint": "consultas/sne/pdf/placa/:placa/codigoOrgao/:codigoOrgao/numeroAit/:numeroAit/codigoInfracao/:codigoInfracao/NA",
+      "responses": [
+        {
+          "uuid": "721952a5-613b-4ab4-a8ba-24ecac749992",
+          "body": "{\n  \"placa\": \"{{request.params.placa}}\",\n  \"filename\": \"NA_{{request.params.placa}}_{{request.params.numeroAit}}.pdf\",\n  \"chaveInfracao\": \"{{request.params.codigoOrgao}}_{{request.params.numeroAit}}_{{request.params.codigoInfracao}}\",\n  \"base64\": \"{{faker 'string.alphanumeric' length=1000}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR500",
+              "operator": "notEquals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "pdf-na-nao-encontrado",
+          "body": "{\n  \"mensagem\": \"PDF de Notificação de Autuação não encontrado\",\n  \"mensagemTecnica\": \"Não foi possível localizar o PDF para os parâmetros informados\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Não Encontrado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "pdf-na-erro-interno",
+          "body": "{\n  \"mensagem\": \"Erro interno ao processar a requisição\",\n  \"mensagemTecnica\": \"Falha na comunicação com o serviço de armazenamento de PDFs\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Erro Interno",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR500",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "4434826f-e03a-4524-bcd1-77fed39ea175",
+      "type": "http",
+      "documentation": "Consulta o PDF de Notificação de Penalidade no SNE",
+      "method": "get",
+      "endpoint": "consultas/sne/pdf/placa/:placa/codigoOrgao/:codigoOrgao/numeroAit/:numeroAit/codigoInfracao/:codigoInfracao/NP",
+      "responses": [
+        {
+          "uuid": "2c9a9ce0-2bc4-4c09-83b3-c656eed59704",
+          "body": "{\n  \"placa\": \"{{request.params.placa}}\",\n  \"filename\": \"NP_{{request.params.placa}}_{{request.params.numeroAit}}.pdf\",\n  \"chaveInfracao\": \"{{request.params.codigoOrgao}}_{{request.params.numeroAit}}_{{request.params.codigoInfracao}}\",\n  \"base64\": \"{{faker 'string.alphanumeric' length=1000}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR500",
+              "operator": "notEquals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "pdf-np-nao-encontrado",
+          "body": "{\n  \"mensagem\": \"PDF de Notificação de Penalidade não encontrado\",\n  \"mensagemTecnica\": \"Não foi possível localizar o PDF para os parâmetros informados\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Não Encontrado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "pdf-np-erro-interno",
+          "body": "{\n  \"mensagem\": \"Erro interno ao processar a requisição\",\n  \"mensagemTecnica\": \"Falha na comunicação com o serviço de armazenamento de PDFs\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Erro Interno",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR500",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "303bf30d-67dd-4f16-833b-c5a6cc1ea895",
+      "type": "http",
+      "documentation": "Consultar dados de uma infração a partir da sua chave",
+      "method": "get",
+      "endpoint": "consultas/v1/infracoes/codigoOrgao/:codigoOrgao/numeroAit/:numeroAit/codigoInfracao/:codigoInfracao",
+      "responses": [
+        {
+          "uuid": "d57e7d7c-ec29-4843-baed-2b3a4bf3f853",
+          "body": "{\n  \"codigoOrgaoAutuador\": \"{{request.params.codigoOrgao}}\",\n  \"numeroAutoInfracao\": \"{{request.params.numeroAit}}\",\n  \"codigoInfracao\": \"{{request.params.codigoInfracao}}\",\n  \"ufOrgaoAutuador\": \"{{faker 'location.stateAbbr'}}\",\n  \"valorIntegralInfracao\": {{faker 'number.float' min=100 max=1000 precision=2}},\n  \"descricaoInfracao\": \"{{faker 'helpers.arrayElement' array='[\"Excesso de velocidade\",\"Estacionamento irregular\",\"Dirigir sem cinto de segurança\",\"Ultrapassagem proibida\",\"Dirigir sob influência de álcool\"]'}}\",\n  \"dataVencimentoPenalidade\": \"{{faker 'date.future' days=30 format='YYYY-MM-DD'}}\",\n  \"dataPagamento\": {{#if (faker 'helpers.arrayElement' array='[true,false,false]')}}\"{{faker 'date.past' days=15 format='YYYY-MM-DD'}}\"{{else}}null{{/if}},\n  \"dataRegistroPagamento\": {{#if (faker 'helpers.arrayElement' array='[true,false,false]')}}\"{{faker 'date.past' days=10 format='YYYY-MM-DD'}}\"{{else}}null{{/if}},\n  \"placa\": \"{{faker 'helpers.replaceSymbols' options='???####'}}\",\n  \"gravidade\": \"{{faker 'helpers.arrayElement' array='[\"leve\",\"média\",\"grave\",\"gravíssima\"]'}}\",\n  \"dataLimiteDefesaAutuacao\": \"{{faker 'date.future' days=15 format='YYYY-MM-DD'}}\",\n  \"localAutuacao\": \"{{faker 'location.street'}}\",\n  \"descricaoMunicipioAutuacao\": \"{{faker 'location.city'}}\",\n  \"codigoMunicipioAutuacao\": {{faker 'number.int' min=1000000 max=9999999}},\n  \"codigoDesdobramento\": \"{{faker 'string.numeric' length=2}}\",\n  \"nomePossuidorOriginal\": \"{{faker 'person.fullName'}}\",\n  \"numeroDocumentoPossuidorOriginal\": \"{{faker 'string.numeric' length=11}}\",\n  \"numeroDocumentoInfratorConsiderado\": \"{{faker 'string.numeric' length=11}}\",\n  \"dataAutuacao\": \"{{faker 'date.past' days=60 format='YYYY-MM-DD'}}\",\n  \"horaAutuacao\": \"{{faker 'date.time'}}\",\n  \"dataEmissaoNotificacaoAutuacao\": \"{{faker 'date.past' days=45 format='YYYY-MM-DD'}}\",\n  \"dataEmissaoNotificacaoPenalidade\": \"{{faker 'date.past' days=30 format='YYYY-MM-DD'}}\",\n  \"medicaoReal\": {{faker 'number.int' min=60 max=120}},\n  \"limitePermitido\": {{faker 'number.int' min=30 max=80}},\n  \"renainf\": {{faker 'number.int' min=1000000 max=9999999}},\n  \"nomePossuidor\": \"{{faker 'person.fullName'}}\",\n  \"numeroDocumentoPossuidor\": \"{{faker 'string.numeric' length=11}}\",\n  \"siglaUfLocalAutuacao\": \"{{faker 'location.stateAbbr'}}\",\n  \"descricaoPaisOrigemVeiculo\": \"Brasil\",\n  \"indicadorExigibilidade\": {{faker 'datatype.boolean'}},\n  \"indicadorFotoRecebida\": {{faker 'datatype.boolean'}},\n  \"indicadorCanceladaSuspensa\": {{faker 'datatype.boolean'}},\n  \"renainfOriginario\": {{faker 'number.int' min=1000000 max=9999999}},\n  \"chaveDaInfracaoOriginal\": {\n    \"codigoOrgaoAutuador\": \"{{faker 'string.numeric' length=3}}\",\n    \"numeroAutoInfracao\": \"{{faker 'string.alphanumeric' length=10 casing='upper'}}\",\n    \"codigoInfracao\": \"{{faker 'string.numeric' length=4}}\"\n  },\n  \"codigoEquipamentoAfericao\": \"{{faker 'string.alphanumeric' length=8 casing='upper'}}\",\n  \"codigoAgenteFiscalizador\": \"{{faker 'string.alphanumeric' length=6 casing='upper'}}\",\n  \"observacoes\": \"{{faker 'lorem.sentence'}}\",\n  \"versao\": \"1.0.0\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "codigoInfracao",
+              "value": "9999",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "codigoInfracao",
+              "value": "8888",
+              "operator": "notEquals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "infracao-nao-encontrada",
+          "body": "{\n  \"mensagem\": \"Infração não encontrada\",\n  \"mensagemTecnica\": \"Não foi possível localizar a infração com os parâmetros informados\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Não Encontrado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "codigoInfracao",
+              "value": "9999",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "infracao-erro-interno",
+          "body": "{\n  \"mensagem\": \"Erro interno ao processar a requisição\",\n  \"mensagemTecnica\": \"Falha na comunicação com o serviço RENAINF\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Erro Interno",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "codigoInfracao",
+              "value": "8888",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "d7eae277-54f5-4549-b867-21de230ce730",
+      "type": "http",
+      "documentation": "Consulta as infrações não pagas de um veículo",
+      "method": "get",
+      "endpoint": "consultas/v1/infracoes/placa/:placa",
+      "responses": [
+        {
+          "uuid": "7dfcb5c6-19bf-4bb8-8b9f-4645cf31155c",
+          "body": "[\n  {{#repeat (faker 'number.int' min=1 max=5)}}\n  {\n    \"codigoOrgaoAutuador\": \"{{faker 'string.numeric' length=3}}\",\n    \"numeroAutoInfracao\": \"{{faker 'string.alphanumeric' length=10 casing='upper'}}\",\n    \"codigoInfracao\": \"{{faker 'string.numeric' length=4}}\",\n    \"ufOrgaoAutuador\": \"{{faker 'location.stateAbbr'}}\",\n    \"valorIntegralInfracao\": {{faker 'number.float' min=100 max=1000 precision=2}},\n    \"descricaoInfracao\": \"{{faker 'helpers.arrayElement' array='[\"Excesso de velocidade\",\"Estacionamento irregular\",\"Dirigir sem cinto de segurança\",\"Ultrapassagem proibida\",\"Dirigir sob influência de álcool\"]'}}\",\n    \"dataVencimentoPenalidade\": \"{{faker 'date.future' days=30 format='YYYY-MM-DD'}}\",\n    \"dataPagamento\": null,\n    \"dataRegistroPagamento\": null,\n    \"placa\": \"{{request.params.placa}}\",\n    \"gravidade\": \"{{faker 'helpers.arrayElement' array='[\"leve\",\"média\",\"grave\",\"gravíssima\"]'}}\",\n    \"dataLimiteDefesaAutuacao\": \"{{faker 'date.future' days=15 format='YYYY-MM-DD'}}\",\n    \"localAutuacao\": \"{{faker 'location.street'}}\",\n    \"descricaoMunicipioAutuacao\": \"{{faker 'location.city'}}\",\n    \"codigoMunicipioAutuacao\": {{faker 'number.int' min=1000000 max=9999999}},\n    \"codigoDesdobramento\": \"{{faker 'string.numeric' length=2}}\",\n    \"nomePossuidorOriginal\": \"{{faker 'person.fullName'}}\",\n    \"numeroDocumentoPossuidorOriginal\": \"{{faker 'string.numeric' length=11}}\",\n    \"numeroDocumentoInfratorConsiderado\": \"{{faker 'string.numeric' length=11}}\",\n    \"dataAutuacao\": \"{{faker 'date.past' days=60 format='YYYY-MM-DD'}}\",\n    \"horaAutuacao\": \"{{faker 'date.time'}}\",\n    \"dataEmissaoNotificacaoAutuacao\": \"{{faker 'date.past' days=45 format='YYYY-MM-DD'}}\",\n    \"dataEmissaoNotificacaoPenalidade\": \"{{faker 'date.past' days=30 format='YYYY-MM-DD'}}\",\n    \"medicaoReal\": {{faker 'number.int' min=60 max=120}},\n    \"limitePermitido\": {{faker 'number.int' min=30 max=80}},\n    \"renainf\": {{faker 'number.int' min=1000000 max=9999999}},\n    \"nomePossuidor\": \"{{faker 'person.fullName'}}\",\n    \"numeroDocumentoPossuidor\": \"{{faker 'string.numeric' length=11}}\",\n    \"siglaUfLocalAutuacao\": \"{{faker 'location.stateAbbr'}}\",\n    \"descricaoPaisOrigemVeiculo\": \"Brasil\",\n    \"indicadorExigibilidade\": true,\n    \"indicadorFotoRecebida\": {{faker 'datatype.boolean'}},\n    \"indicadorCanceladaSuspensa\": false,\n    \"renainfOriginario\": {{faker 'number.int' min=1000000 max=9999999}},\n    \"chaveDaInfracaoOriginal\": {\n      \"codigoOrgaoAutuador\": \"{{faker 'string.numeric' length=3}}\",\n      \"numeroAutoInfracao\": \"{{faker 'string.alphanumeric' length=10 casing='upper'}}\",\n      \"codigoInfracao\": \"{{faker 'string.numeric' length=4}}\"\n    },\n    \"codigoEquipamentoAfericao\": \"{{faker 'string.alphanumeric' length=8 casing='upper'}}\",\n    \"codigoAgenteFiscalizador\": \"{{faker 'string.alphanumeric' length=6 casing='upper'}}\",\n    \"observacoes\": \"{{faker 'lorem.sentence'}}\",\n    \"versao\": \"1.0.0\"\n  }{{#unless @last}},{{/unless}}\n  {{/repeat}}\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR403",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR429",
+              "operator": "notEquals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "infracoes-placa-nao-encontrada",
+          "body": "{\n  \"mensagem\": \"Veículo não encontrado\",\n  \"mensagemTecnica\": \"Não foi possível localizar o veículo com a placa informada\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Não Encontrado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "infracoes-placa-nao-autorizado",
+          "body": "{\n  \"mensagem\": \"Consulta não autorizada\",\n  \"mensagemTecnica\": \"O CNPJ informado não possui autorização para consultar este veículo\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Não Autorizado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR403",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "infracoes-placa-muitas-requisicoes",
+          "body": "{\n  \"mensagem\": \"Muitas requisições\",\n  \"mensagemTecnica\": \"Limite de requisições excedido. Tente novamente em 60 segundos\",\n  \"limitePorMinuto\": 15,\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "Muitas Requisições",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            },
+            {
+              "key": "Retry-After",
+              "value": "60"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR429",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "80529d79-2c6e-48f0-8c8a-ad5ce1d3a186",
+      "type": "http",
+      "documentation": "Consulta todos os veículos de um CNPJ ou todos os veículos de uma filial desde que tenham a mesma raiz. \n\n\nSe a opção cnpjFilial estiver com algum valor, a consulta retorna os dados do CNPJ da filial.\n\n\n Não passando nenhum valor nesse campo, os dados retornados serão os do CNPJ do certificado.",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos",
+      "responses": [
+        {
+          "uuid": "d6892a61-ab47-4fe6-860e-08feb2b91f49",
+          "body": "[\n  {{#repeat (faker 'number.int' min=3 max=10)}}\n  {\n    \"placa\": \"{{faker 'helpers.replaceSymbols' options='???####'}}\",\n    \"renavam\": \"{{faker 'string.numeric' length=11}}\",\n    \"descricaoMarcaModelo\": \"{{faker 'helpers.arrayElement' array='[\"FIAT/PALIO\",\"VW/GOL\",\"GM/ONIX\",\"FORD/KA\",\"TOYOTA/COROLLA\",\"HONDA/CIVIC\",\"HYUNDAI/HB20\",\"RENAULT/SANDERO\"]'}}\",\n    \"anoFabricacao\": {{faker 'number.int' min=2010 max=2025}},\n    \"anoModelo\": {{faker 'number.int' min=2010 max=2025}},\n    \"chassi\": \"{{faker 'string.alphanumeric' length=17 casing='upper'}}\",\n    \"quantidadeTotalRestricoes\": {{faker 'number.int' min=0 max=5}},\n    \"versao\": \"1.0.0\"\n  }{{#unless @last}},{{/unless}}\n  {{/repeat}}\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "cnpjFilial",
+              "value": "12345678000199",
+              "operator": "notEquals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c5dd135c-549d-485b-a1cf-7bd7ddbc18f4",
+          "body": "{\n  \"mensagem\": \"Consulta não autorizada\",\n  \"mensagemTecnica\": \"O CNPJ informado não possui autorização para esta consulta\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Consulta não autorizada",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "cnpjFilial",
+              "value": "12345678000199",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "17b564f8-5f16-4a97-99e2-d88fd28d831f",
+      "type": "http",
+      "documentation": "Consulta de dados de um veículo",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos/placa/:placa",
+      "responses": [
+        {
+          "uuid": "c7415f08-1293-4025-a8cb-63f501b9f60e",
+          "body": "{\n  \"placa\": \"{{request.params.placa}}\",\n  \"renavam\": \"{{faker 'string.numeric' length=11}}\",\n  \"descricaoMunicipioEmplacamento\": \"{{faker 'location.city'}}\",\n  \"chassi\": \"{{faker 'string.alphanumeric' length=17 casing='upper'}}\",\n  \"descricaoCor\": \"{{faker 'helpers.arrayElement' array='[\"PRATA\",\"PRETO\",\"BRANCO\",\"VERMELHO\",\"AZUL\",\"CINZA\"]'}}\",\n  \"anoFabricacao\": {{faker 'number.int' min=2010 max=2025}},\n  \"anoModelo\": {{faker 'number.int' min=2010 max=2025}},\n  \"descricaoCombustivel\": \"{{faker 'helpers.arrayElement' array='[\"FLEX\",\"GASOLINA\",\"DIESEL\",\"ETANOL\",\"ELÉTRICO\"]'}}\",\n  \"descricaoTipoVeiculo\": \"{{faker 'helpers.arrayElement' array='[\"AUTOMOVEL\",\"CAMINHONETE\",\"MOTOCICLETA\",\"ONIBUS\"]'}}\",\n  \"descricaoEspecie\": \"{{faker 'helpers.arrayElement' array='[\"PASSAGEIRO\",\"CARGA\",\"MISTO\"]'}}\",\n  \"descricaoCategoria\": \"{{faker 'helpers.arrayElement' array='[\"PARTICULAR\",\"ALUGUEL\",\"OFICIAL\"]'}}\",\n  \"procedencia\": \"{{faker 'helpers.arrayElement' array='[\"NACIONAL\",\"IMPORTADO\"]'}}\",\n  \"ufJurisdicao\": \"{{faker 'location.stateAbbr'}}\",\n  \"quantidadeTotalRestricoes\": {{faker 'number.int' min=0 max=5}},\n  \"descricaoMarcaModelo\": \"{{faker 'helpers.arrayElement' array='[\"FIAT/PALIO\",\"VW/GOL\",\"GM/ONIX\",\"FORD/KA\",\"TOYOTA/COROLLA\",\"HONDA/CIVIC\",\"HYUNDAI/HB20\",\"RENAULT/SANDERO\"]'}}\",\n  \"proprietario\": {\n    \"tipoDocumento\": \"{{faker 'helpers.arrayElement' array='[\"CPF\",\"CNPJ\"]'}}\",\n    \"numeroDocumento\": \"{{faker 'string.numeric' length=11}}\"\n  },\n  \"indicadores\": {\n    \"rouboFurto\": {{faker 'datatype.boolean'}},\n    \"recall\": {{faker 'datatype.boolean'}},\n    \"comunicacaoVenda\": {{faker 'datatype.boolean'}},\n    \"renajud\": {{faker 'datatype.boolean'}},\n    \"infracoesExigiveis\": {{faker 'datatype.boolean'}}\n  },\n  \"versao\": \"1.0.0\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR403",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR500",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR429",
+              "operator": "notEquals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "ea41bf8d-ef77-4d12-a308-a961bca1b33d",
+          "body": "{\n  \"mensagem\": \"Consulta não autorizada\",\n  \"mensagemTecnica\": \"O CNPJ informado não possui autorização para consultar este veículo\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Consulta não autorizada",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR403",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "veiculo-placa-nao-encontrado",
+          "body": "{\n  \"mensagem\": \"Veículo não encontrado\",\n  \"mensagemTecnica\": \"Não foi possível localizar o veículo com a placa informada\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Não Encontrado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "veiculo-placa-erro-interno",
+          "body": "{\n  \"mensagem\": \"Erro interno ao processar a requisição\",\n  \"mensagemTecnica\": \"Falha na comunicação com o serviço RENAVAM\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Erro Interno",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR500",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "veiculo-placa-muitas-requisicoes",
+          "body": "{\n  \"mensagem\": \"Muitas requisições\",\n  \"mensagemTecnica\": \"Limite de requisições excedido. Tente novamente em 60 segundos\",\n  \"limitePorMinuto\": 15,\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "Muitas Requisições",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            },
+            {
+              "key": "Retry-After",
+              "value": "60"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR429",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "60719de8-c097-4e61-ad7a-a83ebbbdc74a",
+      "type": "http",
+      "documentation": "Verifica se um veículo está associado a um CNPJ",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos/placa/:placa/associado",
+      "responses": [
+        {
+          "uuid": "0864ac53-bf0d-47fe-8767-8b08f8988492",
+          "body": "{\n  \"mensagem\": \"Veículo associado ao CNPJ\",\n  \"mensagemTecnica\": \"O veículo com placa {{request.params.placa}} está associado ao CNPJ informado\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR403",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "notEquals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c50a9f8b-3def-4386-a371-a777bbf6a06e",
+          "body": "{\n  \"mensagem\": \"Consulta não autorizada\",\n  \"mensagemTecnica\": \"O CNPJ informado não possui autorização para consultar este veículo\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Consulta não autorizada",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR403",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "associado-placa-nao-encontrada",
+          "body": "{\n  \"mensagem\": \"Veículo não encontrado\",\n  \"mensagemTecnica\": \"Não foi possível localizar o veículo com a placa informada\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Não Encontrado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "946833bf-993b-4904-ac12-bc171c15e6ac",
+      "type": "http",
+      "documentation": "Consulta ocorrência de roubo e furto por placa.",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos/placa/:placa/ocorrencias-roubo-furto",
+      "responses": [
+        {
+          "uuid": "0a7f635c-11e1-4974-90c6-5e088a3e1108",
+          "body": "{\n  \"chassi\": \"{{faker 'string.alphanumeric' length=17 casing='upper'}}\",\n  \"placa\": \"{{request.params.placa}}\",\n  \"categoriaOcorrencia\": \"{{faker 'helpers.arrayElement' array='[\"ROUBO\",\"FURTO\"]'}}\",\n  \"tipoOcorrenciaDeclaracao\": \"{{faker 'helpers.arrayElement' array='[\"CONSUMADO\",\"TENTATIVA\"]'}}\",\n  \"numeroBoletimOcorrencia\": \"{{faker 'string.alphanumeric' length=10 casing='upper'}}\",\n  \"dataOcorrencia\": \"{{faker 'date.past' days=60 format='YYYY-MM-DD'}}\",\n  \"numeroOrgaoSeguranca\": \"{{faker 'string.numeric' length=5}}\",\n  \"descricaoMunicipioRegistroOcorrencia\": \"{{faker 'location.city'}}\",\n  \"ufRegistroOcorrencia\": \"{{faker 'location.stateAbbr'}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR403",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "SEM_OCORRENCIA",
+              "operator": "notEquals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "ocorrencia-placa-nao-encontrada",
+          "body": "{\n  \"mensagem\": \"Veículo não encontrado\",\n  \"mensagemTecnica\": \"Não foi possível localizar o veículo com a placa informada\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Não Encontrado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "ocorrencia-placa-nao-autorizada",
+          "body": "{\n  \"mensagem\": \"Consulta não autorizada\",\n  \"mensagemTecnica\": \"O CNPJ informado não possui autorização para consultar este veículo\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Não Autorizado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR403",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "ocorrencia-placa-sem-ocorrencia",
+          "body": "{\n  \"mensagem\": \"Veículo sem ocorrências de roubo ou furto\",\n  \"mensagemTecnica\": \"Não foram encontradas ocorrências de roubo ou furto para o veículo informado\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 204,
+          "label": "Sem Conteúdo",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "SEM_OCORRENCIA",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "a2ed4ceb-ba15-4db1-b3b1-9b3744cee9ff",
+      "type": "http",
+      "documentation": "Consulta recall de um veículo",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos/placa/:placa/recall",
+      "responses": [
+        {
+          "uuid": "recall-resposta",
+          "body": "{\n  \"placa\": \"{{request.params.placa}}\",\n  \"chassi\": \"{{faker 'string.alphanumeric' length=17 casing='upper'}}\",\n  \"recalls\": [\n    {{#repeat (faker 'number.int' min=1 max=3)}}\n    {\n      \"codigoCampanha\": \"{{faker 'string.alphanumeric' length=8 casing='upper'}}\",\n      \"descricaoCampanha\": \"{{faker 'helpers.arrayElement' array='[\"Substituição do airbag do motorista\",\"Verificação do sistema de freios\",\"Atualização do software de controle do motor\",\"Substituição da bomba de combustível\",\"Verificação do sistema elétrico\"]'}}\",\n      \"dataInicioCampanha\": \"{{faker 'date.past' years=1 format='YYYY-MM-DD'}}\",\n      \"statusAtendimento\": \"{{faker 'helpers.arrayElement' array='[\"PENDENTE\",\"ATENDIDO\",\"EM_ANDAMENTO\"]'}}\",\n      \"dataAtendimento\": {{#if (faker 'helpers.arrayElement' array='[true,false,false]')}}\"{{faker 'date.past' months=3 format='YYYY-MM-DD'}}\"{{else}}null{{/if}}\n    }{{#unless @last}},{{/unless}}\n    {{/repeat}}\n  ]\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "OK",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR403",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "SEM_RECALL",
+              "operator": "notEquals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "recall-placa-nao-encontrada",
+          "body": "{\n  \"mensagem\": \"Veículo não encontrado\",\n  \"mensagemTecnica\": \"Não foi possível localizar o veículo com a placa informada\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Não Encontrado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "recall-placa-nao-autorizada",
+          "body": "{\n  \"mensagem\": \"Consulta não autorizada\",\n  \"mensagemTecnica\": \"O CNPJ informado não possui autorização para consultar este veículo\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Não Autorizado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR403",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "recall-placa-sem-recall",
+          "body": "{\n  \"placa\": \"{{request.params.placa}}\",\n  \"chassi\": \"{{faker 'string.alphanumeric' length=17 casing='upper'}}\",\n  \"recalls\": []\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Sem Recall",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "SEM_RECALL",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "16646102-1f7f-4cf6-aafb-0cc6b53c927f",
+      "type": "http",
+      "documentation": "Endpoint para testar falhas intermitentes",
+      "method": "get",
+      "endpoint": "sistema/status",
+      "responses": [
+        {
+          "uuid": "status-sucesso",
+          "body": "{\n  \"status\": \"online\",\n  \"versao\": \"1.0.0\",\n  \"uptime\": \"{{faker 'number.int' min=1 max=999}} horas\",\n  \"servidores\": {\n    \"api\": \"online\",\n    \"banco\": \"online\",\n    \"cache\": \"online\"\n  },\n  \"timestamp\": \"{{now 'YYYY-MM-DD HH:mm:ss'}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Sucesso",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "faker",
+              "modifier": "datatype.boolean",
+              "value": "true",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "status-erro",
+          "body": "{\n  \"erro\": \"Serviço temporariamente indisponível\",\n  \"mensagem\": \"O sistema está passando por instabilidade temporária\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 503,
+          "label": "Erro",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            },
+            {
+              "key": "Retry-After",
+              "value": "30"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "faker",
+              "modifier": "datatype.boolean",
+              "value": "false",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "241a13d4-5bde-40ec-b80e-12b25d395f88"
+    },
+    {
+      "type": "route",
+      "uuid": "4434826f-e03a-4524-bcd1-77fed39ea175"
+    },
+    {
+      "type": "route",
+      "uuid": "303bf30d-67dd-4f16-833b-c5a6cc1ea895"
+    },
+    {
+      "type": "route",
+      "uuid": "d7eae277-54f5-4549-b867-21de230ce730"
+    },
+    {
+      "type": "route",
+      "uuid": "80529d79-2c6e-48f0-8c8a-ad5ce1d3a186"
+    },
+    {
+      "type": "route",
+      "uuid": "17b564f8-5f16-4a97-99e2-d88fd28d831f"
+    },
+    {
+      "type": "route",
+      "uuid": "60719de8-c097-4e61-ad7a-a83ebbbdc74a"
+    },
+    {
+      "type": "route",
+      "uuid": "946833bf-993b-4904-ac12-bc171c15e6ac"
+    },
+    {
+      "type": "route",
+      "uuid": "a2ed4ceb-ba15-4db1-b3b1-9b3744cee9ff"
+    },
+    {
+      "type": "route",
+      "uuid": "16646102-1f7f-4cf6-aafb-0cc6b53c927f"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}

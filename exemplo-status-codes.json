@@ -1,0 +1,611 @@
+{
+  "uuid": "status-codes-exemplo",
+  "lastMigration": 33,
+  "name": "Exemplo Status Codes para API e-Frotas",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "routes": [
+    {
+      "uuid": "consulta-veiculo-placa-status",
+      "type": "http",
+      "documentation": "Consulta de dados de um veículo com diferentes status codes",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos/placa/:placa",
+      "responses": [
+        {
+          "uuid": "veiculo-resposta-sucesso",
+          "body": "{\n  \"placa\": \"{{request.params.placa}}\",\n  \"renavam\": \"12345678901\",\n  \"descricaoMunicipioEmplacamento\": \"São Paulo\",\n  \"chassi\": \"9BD17164LA5535799\",\n  \"descricaoCor\": \"PRATA\",\n  \"anoFabricacao\": 2020,\n  \"anoModelo\": 2021,\n  \"descricaoCombustivel\": \"FLEX\",\n  \"descricaoTipoVeiculo\": \"AUTOMOVEL\",\n  \"descricaoEspecie\": \"PASSAGEIRO\",\n  \"descricaoCategoria\": \"PARTICULAR\",\n  \"procedencia\": \"NACIONAL\",\n  \"ufJurisdicao\": \"SP\",\n  \"quantidadeTotalRestricoes\": 0,\n  \"descricaoMarcaModelo\": \"FIAT/PALIO\",\n  \"proprietario\": {\n    \"tipoDocumento\": \"CPF\",\n    \"numeroDocumento\": \"12345678900\"\n  },\n  \"indicadores\": {\n    \"rouboFurto\": false,\n    \"recall\": false,\n    \"comunicacaoVenda\": false,\n    \"renajud\": false,\n    \"infracoesExigiveis\": true\n  },\n  \"versao\": \"1.0.0\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Sucesso",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR403",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR500",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR429",
+              "operator": "notEquals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "veiculo-resposta-nao-encontrado",
+          "body": "{\n  \"mensagem\": \"Veículo com placa {{request.params.placa}} não encontrado\",\n  \"mensagemTecnica\": \"Registro não localizado na base de dados\"\n}",
+          "latency": 0,
+          "statusCode": 404,
+          "label": "Não Encontrado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR404",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "veiculo-resposta-nao-autorizado",
+          "body": "{\n  \"mensagem\": \"Consulta não autorizada\",\n  \"mensagemTecnica\": \"O CNPJ informado não possui autorização para consultar este veículo\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Não Autorizado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR403",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "veiculo-resposta-erro-interno",
+          "body": "{\n  \"mensagem\": \"Erro interno do servidor\",\n  \"mensagemTecnica\": \"Falha na comunicação com o serviço RENAVAM\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 500,
+          "label": "Erro Interno",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR500",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "veiculo-resposta-muitas-requisicoes",
+          "body": "{\n  \"mensagem\": \"Muitas requisições\",\n  \"mensagemTecnica\": \"Limite de requisições excedido. Tente novamente em 60 segundos\",\n  \"limitePorMinuto\": 15\n}",
+          "latency": 0,
+          "statusCode": 429,
+          "label": "Muitas Requisições",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            },
+            {
+              "key": "Retry-After",
+              "value": "60"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR429",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "consulta-infracoes-status",
+      "type": "http",
+      "documentation": "Consulta as infrações de um veículo com diferentes status codes",
+      "method": "get",
+      "endpoint": "consultas/v1/infracoes/placa/:placa",
+      "responses": [
+        {
+          "uuid": "infracoes-resposta-sucesso",
+          "body": "[\n  {\n    \"codigoOrgaoAutuador\": \"123\",\n    \"numeroAutoInfracao\": \"A1B2C3D4\",\n    \"codigoInfracao\": \"123\",\n    \"ufOrgaoAutuador\": \"SP\",\n    \"valorIntegralInfracao\": 293.47,\n    \"descricaoInfracao\": \"Excesso de velocidade\",\n    \"dataVencimentoPenalidade\": \"2025-05-07\",\n    \"dataPagamento\": null,\n    \"placa\": \"{{request.params.placa}}\",\n    \"gravidade\": \"grave\",\n    \"dataLimiteDefesaAutuacao\": \"2025-04-22\",\n    \"localAutuacao\": \"Avenida Paulista\",\n    \"descricaoMunicipioAutuacao\": \"São Paulo\",\n    \"codigoMunicipioAutuacao\": 3550308,\n    \"dataAutuacao\": \"2025-03-01\",\n    \"horaAutuacao\": \"14:30:00\",\n    \"medicaoReal\": 80,\n    \"limitePermitido\": 60,\n    \"indicadorExigibilidade\": true,\n    \"indicadorFotoRecebida\": true\n  },\n  {\n    \"codigoOrgaoAutuador\": \"456\",\n    \"numeroAutoInfracao\": \"E5F6G7H8\",\n    \"codigoInfracao\": \"456\",\n    \"ufOrgaoAutuador\": \"SP\",\n    \"valorIntegralInfracao\": 195.23,\n    \"descricaoInfracao\": \"Estacionamento irregular\",\n    \"dataVencimentoPenalidade\": \"2025-05-07\",\n    \"dataPagamento\": null,\n    \"placa\": \"{{request.params.placa}}\",\n    \"gravidade\": \"média\",\n    \"dataLimiteDefesaAutuacao\": \"2025-04-22\",\n    \"localAutuacao\": \"Rua Augusta\",\n    \"descricaoMunicipioAutuacao\": \"São Paulo\",\n    \"codigoMunicipioAutuacao\": 3550308,\n    \"dataAutuacao\": \"2025-03-05\",\n    \"horaAutuacao\": \"10:15:00\",\n    \"medicaoReal\": null,\n    \"limitePermitido\": null,\n    \"indicadorExigibilidade\": true,\n    \"indicadorFotoRecebida\": true\n  }\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Sucesso",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR400",
+              "operator": "notEquals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "infracoes-resposta-requisicao-invalida",
+          "body": "{\n  \"erro\": \"Requisição inválida\",\n  \"detalhes\": \"Parâmetros obrigatórios não informados\",\n  \"campos\": [\"dataInicial\", \"dataFinal\"]\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "Requisição Inválida",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "x-id-rastreamento",
+              "value": "{{faker 'string.uuid'}}"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "ERR400",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "autenticacao-status",
+      "type": "http",
+      "documentation": "Exemplo de autenticação com diferentes status codes",
+      "method": "post",
+      "endpoint": "auth/login",
+      "responses": [
+        {
+          "uuid": "auth-resposta-sucesso",
+          "body": "{\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\",\n  \"expiresIn\": 3600,\n  \"usuario\": {\n    \"id\": \"{{faker 'string.uuid'}}\",\n    \"nome\": \"Usuário de Teste\",\n    \"email\": \"usuario@teste.com\",\n    \"perfil\": \"ADMINISTRADOR\"\n  }\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Sucesso",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "senha",
+              "value": "senha_incorreta",
+              "operator": "notEquals",
+              "invert": false
+            },
+            {
+              "target": "body",
+              "modifier": "usuario",
+              "value": "usuario_bloqueado",
+              "operator": "notEquals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "auth-resposta-nao-autorizado",
+          "body": "{\n  \"erro\": \"Credenciais inválidas\",\n  \"mensagem\": \"Usuário ou senha incorretos\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "Não Autorizado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "WWW-Authenticate",
+              "value": "Bearer"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "senha",
+              "value": "senha_incorreta",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "auth-resposta-bloqueado",
+          "body": "{\n  \"erro\": \"Usuário bloqueado\",\n  \"mensagem\": \"Sua conta está temporariamente bloqueada devido a múltiplas tentativas de login mal-sucedidas\",\n  \"desbloqueioEm\": \"{{faker 'date.future' minutes=30 format='YYYY-MM-DD HH:mm:ss'}}\"\n}",
+          "latency": 0,
+          "statusCode": 403,
+          "label": "Bloqueado",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "usuario",
+              "value": "usuario_bloqueado",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "falha-intermitente",
+      "type": "http",
+      "documentation": "Exemplo de falha intermitente com probabilidade de 50%",
+      "method": "get",
+      "endpoint": "sistema/status",
+      "responses": [
+        {
+          "uuid": "status-sucesso",
+          "body": "{\n  \"status\": \"online\",\n  \"versao\": \"1.0.0\",\n  \"uptime\": \"{{faker 'number.int' min=1 max=999}} horas\",\n  \"servidores\": {\n    \"api\": \"online\",\n    \"banco\": \"online\",\n    \"cache\": \"online\"\n  },\n  \"timestamp\": \"{{now 'YYYY-MM-DD HH:mm:ss'}}\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Sucesso",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "faker",
+              "modifier": "datatype.boolean",
+              "value": "true",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "status-erro",
+          "body": "{\n  \"erro\": \"Serviço temporariamente indisponível\",\n  \"mensagem\": \"O sistema está passando por instabilidade temporária\",\n  \"idRastreamento\": \"{{faker 'string.uuid'}}\"\n}",
+          "latency": 0,
+          "statusCode": 503,
+          "label": "Erro",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Retry-After",
+              "value": "30"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "faker",
+              "modifier": "datatype.boolean",
+              "value": "false",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "latencia-variavel",
+      "type": "http",
+      "documentation": "Exemplo com latência variável",
+      "method": "get",
+      "endpoint": "consultas/v1/veiculos/placa/:placa/detalhado",
+      "responses": [
+        {
+          "uuid": "resposta-rapida",
+          "body": "{\n  \"placa\": \"{{request.params.placa}}\",\n  \"renavam\": \"12345678901\",\n  \"descricaoMarcaModelo\": \"FIAT/PALIO\",\n  \"anoFabricacao\": 2020,\n  \"anoModelo\": 2021,\n  \"versao\": \"1.0.0\"\n}",
+          "latency": 100,
+          "statusCode": 200,
+          "label": "Resposta Rápida",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "RAPIDO",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "resposta-lenta",
+          "body": "{\n  \"placa\": \"{{request.params.placa}}\",\n  \"renavam\": \"12345678901\",\n  \"descricaoMarcaModelo\": \"FIAT/PALIO\",\n  \"anoFabricacao\": 2020,\n  \"anoModelo\": 2021,\n  \"chassi\": \"9BD17164LA5535799\",\n  \"descricaoCor\": \"PRATA\",\n  \"descricaoCombustivel\": \"FLEX\",\n  \"descricaoTipoVeiculo\": \"AUTOMOVEL\",\n  \"descricaoEspecie\": \"PASSAGEIRO\",\n  \"descricaoCategoria\": \"PARTICULAR\",\n  \"procedencia\": \"NACIONAL\",\n  \"ufJurisdicao\": \"SP\",\n  \"quantidadeTotalRestricoes\": 0,\n  \"proprietario\": {\n    \"tipoDocumento\": \"CPF\",\n    \"numeroDocumento\": \"12345678900\"\n  },\n  \"indicadores\": {\n    \"rouboFurto\": false,\n    \"recall\": false,\n    \"comunicacaoVenda\": false,\n    \"renajud\": false,\n    \"infracoesExigiveis\": true\n  },\n  \"versao\": \"1.0.0\"\n}",
+          "latency": 3000,
+          "statusCode": 200,
+          "label": "Resposta Lenta",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "params",
+              "modifier": "placa",
+              "value": "LENTO",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "consulta-veiculo-placa-status"
+    },
+    {
+      "type": "route",
+      "uuid": "consulta-infracoes-status"
+    },
+    {
+      "type": "route",
+      "uuid": "autenticacao-status"
+    },
+    {
+      "type": "route",
+      "uuid": "falha-intermitente"
+    },
+    {
+      "type": "route",
+      "uuid": "latencia-variavel"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}

@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  mockoon:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    volumes:
+      # Monte o arquivo de configuração como volume para facilitar atualizações
+      - ./mockoon-config-from-openapi.json:/app/mockoon-config-from-openapi.json
+    restart: unless-stopped
+    container_name: mockoon-efrotas
